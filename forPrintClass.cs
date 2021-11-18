@@ -18,6 +18,9 @@ namespace xmlOldViewer
         public string dayOfTheWeek { get; private set; }
         public double latitude { get; private set; }
         public double longtitude { get; private set; }
+        public int dead { get; private set; }
+        public int severelyInjured { get; private set; }
+        public int minorInjury { get; private set; }
 
         public string getName()
         {
@@ -25,7 +28,7 @@ namespace xmlOldViewer
         }
 
         public forPrintClass(string name, string location, string institution, string number, string dbLocation, 
-            string target, string time, string dayOfTheWeek, double latitude, double longtitude)
+            string target, string time, string dayOfTheWeek, double latitude, double longtitude, int dead, int severelyInjured, int miminorInjury)
         {
             this.loaction = location;
             this.name = name;
@@ -37,6 +40,9 @@ namespace xmlOldViewer
             this.dayOfTheWeek = dayOfTheWeek;
             this.latitude = latitude;
             this.longtitude = longtitude;
+            this.dead = dead;
+            this.severelyInjured = severelyInjured;
+            this.minorInjury = miminorInjury;
         }
         public override string ToString()
         {

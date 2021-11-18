@@ -32,7 +32,7 @@ namespace xmlOldViewer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.c_searchCheck = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.b_searchAll = new System.Windows.Forms.Button();
             this.b_export = new System.Windows.Forms.Button();
             this.b_search = new System.Windows.Forms.Button();
             this.t_locationInput = new System.Windows.Forms.TextBox();
@@ -81,7 +81,7 @@ namespace xmlOldViewer
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.c_searchCheck);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.b_searchAll);
             this.groupBox1.Controls.Add(this.b_export);
             this.groupBox1.Controls.Add(this.b_search);
             this.groupBox1.Controls.Add(this.t_locationInput);
@@ -104,14 +104,15 @@ namespace xmlOldViewer
             this.c_searchCheck.Text = "X";
             this.c_searchCheck.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // b_searchAll
             // 
-            this.button2.Location = new System.Drawing.Point(68, 276);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(83, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "모든데이터";
-            this.button2.UseVisualStyleBackColor = true;
+            this.b_searchAll.Location = new System.Drawing.Point(68, 276);
+            this.b_searchAll.Name = "b_searchAll";
+            this.b_searchAll.Size = new System.Drawing.Size(83, 23);
+            this.b_searchAll.TabIndex = 8;
+            this.b_searchAll.Text = "전부 검색";
+            this.b_searchAll.UseVisualStyleBackColor = true;
+            this.b_searchAll.Click += new System.EventHandler(this.b_searchAll_Click);
             // 
             // b_export
             // 
@@ -558,7 +559,7 @@ namespace xmlOldViewer
         private System.Windows.Forms.Button b_export;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button b_searchAll;
         private System.Windows.Forms.CheckBox c_searchCheck;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
