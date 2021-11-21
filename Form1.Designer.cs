@@ -275,9 +275,9 @@ namespace xmlOldViewer
             this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.label15);
             this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Location = new System.Drawing.Point(174, 146);
+            this.groupBox4.Location = new System.Drawing.Point(174, 155);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(319, 153);
+            this.groupBox4.Size = new System.Drawing.Size(319, 144);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "근처 사고 정보";
@@ -285,7 +285,7 @@ namespace xmlOldViewer
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(73, 124);
+            this.label16.Location = new System.Drawing.Point(73, 107);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(29, 12);
             this.label16.TabIndex = 31;
@@ -294,7 +294,7 @@ namespace xmlOldViewer
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 124);
+            this.label17.Location = new System.Drawing.Point(6, 107);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(69, 12);
             this.label17.TabIndex = 30;
@@ -392,7 +392,7 @@ namespace xmlOldViewer
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(259, 124);
+            this.button1.Location = new System.Drawing.Point(259, 96);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(54, 23);
             this.button1.TabIndex = 8;
@@ -413,7 +413,7 @@ namespace xmlOldViewer
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(174, 19);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(319, 121);
+            this.groupBox3.Size = new System.Drawing.Size(319, 130);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "위치 정보";
@@ -429,7 +429,7 @@ namespace xmlOldViewer
             // l_changeTime
             // 
             this.l_changeTime.AutoSize = true;
-            this.l_changeTime.Location = new System.Drawing.Point(73, 68);
+            this.l_changeTime.Location = new System.Drawing.Point(73, 80);
             this.l_changeTime.Name = "l_changeTime";
             this.l_changeTime.Size = new System.Drawing.Size(0, 12);
             this.l_changeTime.TabIndex = 18;
@@ -445,7 +445,7 @@ namespace xmlOldViewer
             // l_changeLocation
             // 
             this.l_changeLocation.AutoSize = true;
-            this.l_changeLocation.Location = new System.Drawing.Point(73, 85);
+            this.l_changeLocation.Location = new System.Drawing.Point(73, 97);
             this.l_changeLocation.Name = "l_changeLocation";
             this.l_changeLocation.Size = new System.Drawing.Size(0, 12);
             this.l_changeLocation.TabIndex = 16;
@@ -470,7 +470,7 @@ namespace xmlOldViewer
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(26, 85);
+            this.label6.Location = new System.Drawing.Point(26, 97);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 14;
@@ -479,7 +479,7 @@ namespace xmlOldViewer
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 68);
+            this.label5.Location = new System.Drawing.Point(26, 80);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 13;

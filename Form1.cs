@@ -1,14 +1,6 @@
 ﻿/*
- 
-지금 좀 복잡한데 결국 계산을 하려면 급식소의 위도 경도를 전부 구해야해, 그런데 급식소 데이터를 가져오는 부분이 객채 생성과 붙어있어
-떠오르는 방법은 2가지
-    1. 객채 생성하는 부분은 일단 그래도 두고 따로 함수를 작성한다. 물론 객채 생성할 때, db 정보가져올 때 위도 경도는 가져와야함. 
-    이 함수는 객채 생성 바로 뒤에 올 것이다. 정확히 적자면 reader 가 끝나는 부분. 그 후 reader 를 작성해서 리스트박스를 하나씩 클릭하고, 클랙된 객채에 데이터를 주입한다.
-    함수의 내용은 하나씩 위와 같다
-    
-    2. 객채 생성할 때 관여하지 말고 버튼을 하나 만들어서 그 버튼을 누르면 급식소 위도경도 가져오고 모든 위도경도를 가져오는 방법
-    사용자 친화적인 방법은 아니니 고려 대상이 아니다. 아무튼 생각난 방법중 하나 
- 여기서 브랜치 하나 만들어야 할것 같아 이걸 쓰는날이 오다니
+    318 번 줄 수정중. 지금 문제가 경상이랑 중상이랑 전부 같아 아마 db 업로드 할때 잘못된듯?
+    보러간다
  */
 
 
@@ -208,7 +200,7 @@ namespace xmlOldViewer
                                     arr[7] = reader.GetString(10);
                                     getDoubls[0] = reader.GetDouble(11);
                                     getDoubls[1] = reader.GetDouble(12);
-                                    l_names.Items.Add(new forPrintClass(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], getDoubls[0], getDoubls[1], counts[0], counts[1], counts[2]));
+                                    //l_names.Items.Add(new forPrintClass(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], getDoubls[0], getDoubls[1], counts[0], counts[1], counts[2]));
                                 }
                             }
                         }
@@ -290,63 +282,6 @@ namespace xmlOldViewer
                         cmd.Connection = DBconnection;
                         DBconnection.Open();
                         string query;
-                        int[] counts = new int[3];
-                        counts[0] = counts[1] = counts[2] = 0;
-                        query =
-                           "SELECT latitude, longtitude, dead, severelyInjured, minorInjury " + // 사망 중상 경상
-                           "FROM 사고다발지현황;";
-                        cmd.CommandText = query;
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                double latitude = reader.GetDouble(0);
-                                double longtitude = reader.GetDouble(1);
-                                if ((latitude * latitude) + (longtitude * longtitude) <= 0.02 * 0.02)
-                                {
-                                    counts[0] += reader.GetInt32(2); // 사망
-                                    counts[1] += reader.GetInt32(3); // 중상
-                                    counts[2] += reader.GetInt32(4); // 경상
-                                }
-                            }
-                        }
-                        query =
-                           "SELECT Latitude, Longitude, dead, severelyInjured, minorInjury " + // 사망 중상 경상
-                           "FROM 보행노인사고다발지현황;";
-                        cmd.CommandText = query;
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                double latitude = reader.GetDouble(0);
-                                double longtitude = reader.GetDouble(1);
-                                if ((latitude * latitude) + (longtitude * longtitude) <= 0.02 * 0.02)
-                                {
-                                    counts[0] += reader.GetInt32(2); // 사망
-                                    counts[1] += reader.GetInt32(3); // 중상
-                                    counts[2] += reader.GetInt32(4); // 경상
-                                }
-                            }
-                        }
-                        query =
-                           "SELECT Latitude, Longitude, dead, severelyInjured, minorInjury " + // 사망 중상 경상
-                           "FROM 무단횡단사고다발지현황;";
-                        cmd.CommandText = query;
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                double latitude = reader.GetDouble(0);
-                                double longtitude = reader.GetDouble(1);
-                                // 
-                                if ((latitude * latitude) + (longtitude * longtitude) <= )
-                                {
-                                    counts[0] += reader.GetInt32(2); // 사망
-                                    counts[1] += reader.GetInt32(3); // 중상
-                                    counts[2] += reader.GetInt32(4); // 경상
-                                }
-                            }
-                        }
                         query =
                             "SELECT * " +
                             "FROM 전국무료급식소";
@@ -370,13 +305,181 @@ namespace xmlOldViewer
                                 arr[3] = reader.GetString(6);
                                 arr[4] = reader.GetString(7);
                                 arr[5] = reader.GetString(8);
+                                if (arr[5].Length > 22)
+                                {
+                                    arr[5] = arr[5].Insert(22, "\n"); // 대상 줄넘김
+                                }
                                 arr[6] = reader.GetString(9);
                                 arr[7] = reader.GetString(10);
                                 getDoubls[0] = reader.GetDouble(11);
                                 getDoubls[1] = reader.GetDouble(12);
-                                l_names.Items.Add(new forPrintClass(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], getDoubls[0], getDoubls[1], counts[0], counts[1], counts[2]));
+                                l_names.Items.Add(new forPrintClass(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], getDoubls[0], getDoubls[1]));
                             }
                         }
+
+                        double ca = 0.002;
+                        int[] counts = new int[3];
+                        counts[0] = counts[1] = counts[2] = 0; // 0 : 사망 1 : 중상 2 : 경상
+                        query =
+                            "SELECT dead, severelyInjured, minorInjury, latitude, longtitude " +
+                            "FROM 사고다발지현황";
+                        cmd.CommandText = query;
+                        forPrintClass getLoaction;
+
+                        for (int index = 0; index < l_names.Items.Count; index++)
+                        {
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                l_names.SelectedIndex = index;
+                                getLoaction = (forPrintClass)l_names.SelectedItem;
+                                while (reader.Read())
+                                {
+                                    double latitude; double longitude;
+                                    latitude = reader.GetDouble(3);
+                                    longitude = reader.GetDouble(4); // 사고다발지의 위도경도
+                                    // 여기서 판별한다
+                                    // 1 사분면
+                                    if (((latitude >= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    // 2 사분면
+                                    if(((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    // 3 사분면
+                                    if(((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    if(((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                }
+                                forPrintClass setData = (forPrintClass)l_names.SelectedItem;
+                                setData.dead = counts[0];
+                                setData.severelyInjured = counts[1];
+                                setData.minorInjury = counts[2];
+                                l_names.SelectedItem = setData;
+                                counts[0] = counts[1] = counts[2] = 0; // 0 : 사망 1 : 중상 2 : 경상
+                            }
+                        }/*
+                        query =
+                            "SELECT dead, severelyInjured, minorInjury, Latitude, Longitude " +
+                            "FROM 보행노인사고다발지현황";
+                        cmd.CommandText = query;
+                        for (int index = 0; index < l_names.Items.Count; index++)
+                        {
+                            l_names.SelectedIndex = index;
+                            getLoaction = (forPrintClass)l_names.SelectedItem;
+                            counts[0] = getLoaction.dead;
+                            counts[1] = getLoaction.severelyInjured;
+                            counts[2] = getLoaction.minorInjury;
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    double latitude; double longitude;
+                                    latitude = reader.GetDouble(3);
+                                    longitude = reader.GetDouble(4); // 사고다발지의 위도경도
+                                    // 여기서 판별한다
+                                    // 1 사분면
+                                    if (((latitude >= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    // 2 사분면
+                                    if (((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    // 3 사분면
+                                    if (((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    if (((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                }
+                                forPrintClass setData = (forPrintClass)l_names.SelectedItem;
+                                setData.dead = counts[0];
+                                setData.severelyInjured = counts[1];
+                                setData.minorInjury = counts[2];
+                                l_names.SelectedItem = setData;
+                            }
+                        }
+                        query =
+                            "SELECT dead, severelyInjured, minorInjury, Latitude, Longitude " +
+                            "FROM 무단횡단사고다발지현황";
+                        cmd.CommandText = query;
+                        for (int index = 0; index < l_names.Items.Count; index++)
+                        {
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                l_names.SelectedIndex = index;
+                                getLoaction = (forPrintClass)l_names.SelectedItem;
+                                while (reader.Read())
+                                {
+                                    double latitude; double longitude;
+                                    latitude = reader.GetDouble(3);
+                                    longitude = reader.GetDouble(4); // 사고다발지의 위도경도
+                                    // 여기서 판별한다
+                                    // 1 사분면
+                                    if (((latitude >= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    // 2 사분면
+                                    if (((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    // 3 사분면
+                                    if (((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                    if (((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    {
+                                        counts[0] += reader.GetInt32(0);
+                                        counts[1] += reader.GetInt32(1);
+                                        counts[2] += reader.GetInt32(2);
+                                    }
+                                }
+                                forPrintClass setData = (forPrintClass)l_names.SelectedItem;
+                                setData.dead = counts[0];
+                                setData.severelyInjured = counts[1];
+                                setData.minorInjury = counts[2];
+                                l_names.SelectedItem = setData;
+                                counts[0] = counts[1] = counts[2] = 0; // 0 : 사망 1 : 중상 2 : 경상
+                            }
+                        }*/
                         DBconnection.Close();
                     }
                 }
